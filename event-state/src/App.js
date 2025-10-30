@@ -6,6 +6,7 @@ import TimeView from './components/TimeView';
 import Ref from './components/RefEx';
 import EffectEx1 from './components/EffectEx1';
 import EffectEx2 from './components/EffectEx2';
+import ReducerEx from './components/ReducerEx';
 
 function App() {
   console.log('App.js 랜더링');
@@ -18,8 +19,9 @@ function App() {
       <TimeView />
       <SignUp /> 
       <Ref /> 
-      <EffectEx1 /> */}
-      <EffectEx2 />
+      <EffectEx1 />
+      <EffectEx2 /> */}
+      <ReducerEx />
     </div>
   );
 }
