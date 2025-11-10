@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { getTodoList, insertTodo, deleteTodo } from '../utils/api';
+import { getTodoList, insertTodo, deleteTodo, completeTodo } from '../utils/api';
 
 export default () => {
   const [todoList, setTodoList] = useState([]);
@@ -23,6 +23,19 @@ export default () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+  
+  const handleComplete = async (id) => {
+    try {
+      const res = await completeTodo(id);
+      alert(res.msg);
+      if (res.result !== 0) {
+        // 완료되면 리스트에서 제거
+        setTodoList((prev) => prev.filter((item) => item.id !== id));
+      }
+    } catch (error) {
+      console.error('완료 처리 실패:', error);
     }
   };
 
@@ -68,7 +81,7 @@ export default () => {
               <td>{item.content}</td>
               <td>{item.createDate}</td>
               <td>
-                <button className="btn btn-primary me-2">완료</button>
+                <button className="btn btn-primary me-2"  onClick={() => handleComplete(item.id)}>완료</button>
               </td>
 
               <td>

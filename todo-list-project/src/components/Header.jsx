@@ -11,7 +11,7 @@ export default () => {
             </Link>
           </li>
           <li className="nav-item me-3">
-            <Link className="nav-link" to="/done">
+            <Link className="nav-link" to="/todo/done">
               완료 목록
             </Link>
           </li>

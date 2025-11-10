@@ -45,3 +45,14 @@ export const deleteTodo = async (id) => {
   const res = await todoAPI.delete(`/delete/${id}`);
   return res.data;
 };
+
+export const completeTodo = async (id) => {
+  const res = await todoAPI.post(`/complete/${id}`);
+  return res.data;
+};
+
+export const getDoneList = async () => {
+  const res = await todoAPI.get('/done/list');
+  console.log('getDoneList', res.data);
+  return res.data;
+}
