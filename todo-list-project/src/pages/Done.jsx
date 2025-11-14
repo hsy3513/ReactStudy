@@ -1,69 +1,59 @@
-import { useEffect, useRef, useState } from 'react';
-import { getDoneList } from '../utils/api';
+// src/components/Done.jsx
+import { useEffect, useState } from "react";
+import { getDoneList, deleteDone } from "../utils/api";
 
-export default () => {
+export default function Done() {
   const [doneList, setDoneList] = useState([]);
-  const txtContent = useRef(null);
 
   const fetchDoneList = async () => {
     const data = await getDoneList();
-    setDoneList(data.list);
+    setDoneList(data.list || []);
   };
 
   useEffect(() => {
     fetchDoneList();
   }, []);
 
-  // const handleDoneDelete = async (id) => {
-  //   try {
-  //     const res = await deleteDone(id);
-  //     alert(res.msg);
-  //     if (res.count != 0) {
-  //       setDoneList(doneList.filter((item) => item.id != id));
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const register = async () => {
-  //   //모든 항목이 입력 되었는지 체크
-  //   if (!txtContent.current.value) {
-  //     alert('할 일을 입력하세요');
-  //     return;
-  //   }
-
-  //   if (res.count == 0) {
-  //     alert(res.msg);
-  //   } else {
-  //     alert(res.msg);
-  //     fetchDoneList();
-  //   }
-  // };
+  const handleDoneDelete = async (id) => {
+    const res = await deleteDone(id);
+    // alert(res.msg);
+    if (res.result !== 0) setDoneList(doneList.filter((t) => t.id !== id));
+  };
 
   return (
-    <div>
-      <table>
-        <thead>
+    <div className="flex-grow-1 p-5 bg-light">
+
+      <table className="table table-hover text-center align-middle bg-white shadow-sm">
+        <thead className="table-success">
           <tr>
-            <th>할 일</th>
-            <th>날짜</th>
+            <th>완료 항목</th>
+            <th>완료일</th>
             <th>삭제</th>
           </tr>
         </thead>
         <tbody>
-          {doneList.map((item) => (
-            <tr key={item.id}>
-              <td>{item.content}</td>
-              <td>{item.createDate}</td>
-
-              <td>
-                {/* <button className="btn btn-danger" onClick={() => handleDoneDelete(item.id)}>삭제</button> */}
-              </td>
+          {doneList.length > 0 ? (
+            doneList.map((item) => (
+              <tr key={item.id}>
+                <td>{item.content}</td>
+                <td>{item.createDate}</td>
+                <td>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDoneDelete(item.id)}
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3}>완료된 항목이 없습니다 🎉</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
   );
-};
+}

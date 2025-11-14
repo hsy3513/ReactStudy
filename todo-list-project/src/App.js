@@ -8,12 +8,14 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Header />
-        <hr />
-        <Routes>
-          <Route path='/todo' element={<Todo />} />
-          <Route path='/todo/done' element={<Done />} />
-        </Routes>
+        <div className="d-flex">
+          <Header />
+          <hr />
+          <Routes>
+            <Route path="/todo" element={<Todo />} />
+            <Route path="/todo/done" element={<Done />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </div>
   );

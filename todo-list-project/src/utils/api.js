@@ -56,3 +56,8 @@ export const getDoneList = async () => {
   console.log('getDoneList', res.data);
   return res.data;
 }
+
+export const deleteDone = async (id) => {
+  const res = await todoAPI.delete(`done/delete/${id}`);
+  return res.data;
+};
